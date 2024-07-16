@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import Lottie from 'lottie-react';
 import loginAnimation from '../../public/images/loginAnimation.json'
 import { Link } from 'react-router-dom';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import './Login.css'
 
 const LoginComponent = () => {
     const [showPass, setShowPass]=useState(false)
@@ -48,27 +51,33 @@ const LoginComponent = () => {
   return (
     <>
         
-        <div className='login flex justify-center gap-[300px] mt-[150px]'>
+        <div className='login flex justify-center gap-[250px] mt-[150px]'>
             <div className='loginAnimation '>
             <Lottie animationData={loginAnimation} loop={true} className='w-[450px]'/>
             </div>
-            <div className='loginForm'>
-                <img src="images/logo.png" alt="logo" className='w-[100px] mx-auto'/>
-                <p className='mt-[20px] text-center text-[15px] font-montserrat font-medium'>Log in to continue</p>
+            <div className='loginForm w-[250px]'>
+                <img src="images/logoWhite.png" alt="logo" className='w-[100px] mx-auto'/>
+                <p className='mt-[20px] text-center text-[15px] font-montserrat font-light'>Log in to continue</p>
                 <form action="submit" onSubmit={handleSubmit} className='mt-[20px] min-w-full'>
                     <label htmlFor="email" className='font-medium font-montserrat'>Email</label><br />
-                    <input type="email" onChange={handleEmail} className='email border-[black] border-[1px] rounded-md w-full mb-2 p-1 outline-none font-montserrat' /><br />
-                    <p className='emailError text-[10px] text-red-700 font-montserrat'>{emailError}</p>
+                    <input type="email" onChange={handleEmail} className='email rounded-md w-full p-2 outline-none focus:outline-none focus:ring-2 focus:ring-[#FFB07F] font-montserrat font-light text-black text-sm' placeholder='Enter your email'/><br />
+                    <p className='emailError text-[10px] text-red-200 font-montserrat mb-2'>{emailError}</p>
                     <label htmlFor="password" className='font-medium font-montserrat'>Password</label><br />
-                    <input type="password" onChange={handlePassword} className='password border-[black] border-[1px] rounded-md w-full p-1 outline-none' />
-                    <p className='passError text-[10px] text-red-700 font-montserrat'>{passError}</p>
-                    <button className='w-full text-center text-[15px] font-medium bg-[#8E3E63] hover:bg-[#FFB07F] ease-linear duration-200 hover:text-black my-7 py-[5px] p-[3px] rounded-md font-montserrat text-white'>Log In</button>
+                    <div className='relative'>
+              <input
+                type={showPass ? 'text' : 'password'}
+                onChange={handlePassword}
+                className='password rounded-md w-full p-2 outline-none bg-white text-black font-montserrat font-light text-sm focus:outline-none focus:ring-2 focus:ring-[#FFB07F]' placeholder='Enter your password'
+              />
+              <span className='absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer' onClick={handleShowPass}>
+                {showPass ? <FaEye className='text-black'/> : <FaEyeSlash className='text-black'/>}
+              </span>
+            </div>                    
+                    <p className='passError text-[10px] text-red-200 font-montserrat'>{passError}</p>
+                    <button className='w-full text-center text-black text-[15px] font-medium bg-[#91DDCF] hover:bg-[#FFB07F] ease-linear duration-200 my-7 py-[7px] p-[3px] rounded-md font-montserrat'>Log In</button>
                 </form>
-                <p className='text-center'>New here? <Link to='#' className='text-blue-700'>Sign up</Link></p>
-
-
+                <p className='text-center'>New here? <Link to='#' className='text-blue-400 underline'>Sign up</Link></p>
             </div>
-
         </div>
     </>
   )
