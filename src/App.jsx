@@ -2,12 +2,14 @@ import { useState } from 'react'
 import './App.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import LoginPage from './Pages/LoginPage'
+import SignUpPage from './Pages/SignUpPage'
 
 function App() {
   const route=createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path='/' element={<LoginPage/>}/>         
+        <Route path='/' element={<LoginPage/>}/>
+        <Route path='/signup' element={<SignUpPage/>}></Route>         
       </Route>
 
     )

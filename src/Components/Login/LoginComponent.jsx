@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Lottie from 'lottie-react';
-import loginAnimation from '../../public/images/loginAnimation.json'
+import loginAnimation from '../../../public/images/loginAnimation.json'
 import { Link } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -46,6 +46,13 @@ const LoginComponent = () => {
     }
 }
 //  =============submit part end
+useEffect(() => {
+  document.body.style.backgroundColor = '#8E3E63'; // Background color for Login page
+
+  return () => {
+    document.body.style.backgroundColor = ''; // Reset on component unmount
+  };
+}, []);
 
 
   return (
@@ -76,7 +83,7 @@ const LoginComponent = () => {
                     <p className='passError text-[10px] text-red-200 font-montserrat'>{passError}</p>
                     <button className='w-full text-center text-black text-[15px] font-medium bg-[#91DDCF] hover:bg-[#FFB07F] ease-linear duration-200 my-7 py-[7px] p-[3px] rounded-md font-montserrat'>Log In</button>
                 </form>
-                <p className='text-center'>New here? <Link to='#' className='text-blue-400 underline'>Sign up</Link></p>
+                <p className='text-center'>New here? <Link to='/signup' className='text-blue-400 underline'>Sign up</Link></p>
             </div>
         </div>
     </>
