@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import './Login.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Bounce } from 'react-toastify';
 
 const LoginComponent = () => {
     const [showPass, setShowPass]=useState(false)
@@ -43,6 +46,19 @@ const LoginComponent = () => {
     }
     if(!pass){
       setPassError('Please enter your password')
+    }
+    else{
+      toast.success('Logged in!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
     }
 }
 //  =============submit part end
