@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import './signupcss.css'
 import Lottie from 'lottie-react';
 import loginAnimation from '../../../public/images/signupAnimation.json'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useState, CSSProperties } from "react";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const SignUpComponent = () => {
   const [showPass, setShowPass]=useState(false)
@@ -23,8 +26,15 @@ const SignUpComponent = () => {
   const [usernameError, setUsernameError]=useState('')
   const [emailError, setEmailError]=useState('')
   const [passError, setPassError]=useState('')
+  const navigate= useNavigate()
 
   // =========state part end
+
+  //==========firebase variables start============//
+  const auth = getAuth();
+  const [loading, setLoading] = useState(false)
+
+  //==========firebase variables end============//
 
   // ===========function part start 
   const handleUserName=(e)=>{
@@ -58,6 +68,14 @@ const SignUpComponent = () => {
       setPassError('Please enter your password')
     }
     else{
+      setLoading(true)
+
+      createUserWithEmailAndPassword(auth, email, pass)
+        .then((userCredential) => {
+          // Signed up 
+          console.log('done')
+          setLoading(false)
+           // ======toast====//
       toast.success('Signed up successfully!', {
         position: "top-right",
         autoClose: 5000,
@@ -69,7 +87,42 @@ const SignUpComponent = () => {
         theme: "dark",
         transition: Bounce,
         });
+        navigate('/')
 
+        })
+        .catch((error) => {
+          setLoading(false)
+          const errorCode=error.code;
+          if(errorCode=='auth/weak-password'){
+            toast.error('Password not strong enough', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Bounce,
+              });
+          }
+          if(errorCode=='auth/email-already-in-use'){
+            toast.error('Email already in use.', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              transition: Bounce,
+              });
+
+          }
+          // ..
+        });
+     
     }
 }
 //  =============submit part end
@@ -102,7 +155,7 @@ const SignUpComponent = () => {
                     <p className='passError text-[10px] text-red-600 font-montserrat mb-2'>{passError}</p>
                     
                     {/* ===============CONFIRM PASSWORD START============= */}
-                    <label htmlFor="password" className='font-medium font-montserrat text-black'>Confirm Password</label><br />
+                    {/* <label htmlFor="password" className='font-medium font-montserrat text-black'>Confirm Password</label><br />
                     <div className='relative'>
               <input
                 type={showPass ? 'text' : 'password'}
@@ -113,13 +166,25 @@ const SignUpComponent = () => {
                 {showPass ? <FaEye className='text-black'/> : <FaEyeSlash className='text-black'/>}
               </span>
             </div>                    
-                    <p className='passError text-[10px] text-red-600 font-montserrat'>{passError}</p>
+                    <p className='passError text-[10px] text-red-600 font-montserrat'>{passError}</p> */}
                     
 
                     {/* ===============CONFIRM PASSWORD END============= */}
+
+                    {/* =========button start======== */}
+                    {
+                      loading?
+                      <div className='flex justify-center w-full text-center text-white text-[15px] font-medium bg-[#8E3E63] my-7 py-[7px] p-[3px] rounded-md font-montserrat'>
+                        <BeatLoader color='#fff' size='10px'/>
+                      </div>
+                      :
+                      <button className='w-full text-center text-white text-[15px] font-medium bg-[#8E3E63] hover:bg-[#FFB07F] hover:text-black ease-linear duration-200 my-7 py-[7px] p-[3px] rounded-md font-montserrat'>Sign Up</button>
+
+                    }
                     
-                    <button className='w-full text-center text-white text-[15px] font-medium bg-[#8E3E63] hover:bg-[#FFB07F] hover:text-black ease-linear duration-200 my-7 py-[7px] p-[3px] rounded-md font-montserrat'>Sign Up</button>
-                
+                   
+                    
+                    {/* =========button end======== */}
                 </form>
                 <p className='text-center text-black'>Already have an account? <Link to='/' className='text-blue-400 underline'>Log In</Link></p>
             </div>

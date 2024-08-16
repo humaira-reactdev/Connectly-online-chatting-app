@@ -4,6 +4,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import LoginPage from './Pages/LoginPage'
 import SignUpPage from './Pages/SignUpPage'
 import { ToastContainer } from 'react-toastify'
+import database from './firebase.config'
+
 
 function App() {
   const route=createBrowserRouter(
