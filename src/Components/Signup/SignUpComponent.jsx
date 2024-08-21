@@ -8,7 +8,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { useState, CSSProperties } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
 
@@ -72,6 +72,11 @@ const SignUpComponent = () => {
 
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
+          // ============add username and profile picture=======
+          updateProfile(auth.currentUser, {
+            displayName: username,
+            photoURL: "https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"
+          })
           // Signed up 
           console.log('done')
           setLoading(false)
@@ -88,6 +93,8 @@ const SignUpComponent = () => {
         transition: Bounce,
         });
         navigate('/')
+        // email verification
+        sendEmailVerification(auth.currentUser)
 
         })
         .catch((error) => {
