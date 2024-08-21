@@ -81,7 +81,7 @@ const SignUpComponent = () => {
           console.log('done')
           setLoading(false)
            // ======toast====//
-      toast.success('Signed up successfully!', {
+      toast.success('Signed up successfully! Check your email to verify.', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
