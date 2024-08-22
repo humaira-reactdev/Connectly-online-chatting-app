@@ -103,16 +103,17 @@ useEffect(() => {
                     <p className='emailError text-[10px] text-red-200 font-montserrat mb-2'>{emailError}</p>
                     <label htmlFor="password" className='font-medium font-montserrat'>Password</label><br />
                     <div className='relative'>
-              <input
-                type={showPass ? 'text' : 'password'}
-                onChange={handlePassword}
-                className='password rounded-md w-full p-2 outline-none bg-white text-black font-montserrat font-light text-sm focus:outline-none focus:ring-2 focus:ring-[#FFB07F]' placeholder='Enter your password'
-              />
-              <span className='absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer' onClick={handleShowPass}>
-                {showPass ? <FaEye className='text-black'/> : <FaEyeSlash className='text-black'/>}
-              </span>
-            </div>                    
+                      <input
+                        type={showPass ? 'text' : 'password'}
+                        onChange={handlePassword}
+                        className='password rounded-md w-full p-2 outline-none bg-white text-black font-montserrat font-light text-sm focus:outline-none focus:ring-2 focus:ring-[#FFB07F]' placeholder='Enter your password'
+                      />
+                      <span className='absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer' onClick={handleShowPass}>
+                        {showPass ? <FaEye className='text-black'/> : <FaEyeSlash className='text-black'/>}
+                      </span>
+                    </div>                    
                     <p className='passError text-[10px] text-red-200 font-montserrat'>{passError}</p>
+                    <Link to='/forgotpassword'>Forgot Password?</Link>
                     <button className='w-full text-center text-black text-[15px] font-medium bg-[#91DDCF] hover:bg-[#FFB07F] ease-linear duration-200 my-7 py-[7px] p-[3px] rounded-md font-montserrat'>Log In</button>
                 </form>
                 <p className='text-center'>New here? <Link to='/signup' className='text-blue-400 underline'>Sign up</Link></p>
