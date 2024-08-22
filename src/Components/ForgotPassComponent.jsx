@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 
 const ForgotPassComponent = () => {
 
   const [email, setEmail] = useState('');
   const auth = getAuth();
+  const navigate=useNavigate()  
 
   const handleChange=(event)=>{
     setEmail(event.target.value)
@@ -21,7 +23,7 @@ const ForgotPassComponent = () => {
       sendPasswordResetEmail(auth, email)
       .then(() => {
         alert('Password reset email sent!')
-        
+        navigate('/')        
       })
       .catch((error) => {
         const errorCode = error.code;

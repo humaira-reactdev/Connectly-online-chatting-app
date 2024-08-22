@@ -55,8 +55,33 @@ const LoginComponent = () => {
       // Sign in
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
+        // Signed in
+        if(userCredential.user.emailVerified==false){
+          toast.error('Email unverified. Please verify your email to log in.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            });
+        }
+        else{
+          toast.success('Logged in!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            });
+        }
         // ...
       })
       .catch((error) => {
@@ -64,17 +89,7 @@ const LoginComponent = () => {
         const errorMessage = error.message;
       });
     
-      toast.success('Logged in!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        transition: Bounce,
-        });
+      
     }
 }
 //  =============submit part end
