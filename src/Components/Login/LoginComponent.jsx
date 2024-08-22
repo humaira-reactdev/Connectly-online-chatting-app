@@ -8,6 +8,7 @@ import './Login.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginComponent = () => {
     const [showPass, setShowPass]=useState(false)
@@ -23,6 +24,9 @@ const LoginComponent = () => {
   const [passError, setPassError]=useState('')
 
   // =========state part end
+
+  // =======firebase variables
+  const auth = getAuth();
 
   // ===========function part start 
   const handleEmail=(e)=>{
@@ -48,6 +52,18 @@ const LoginComponent = () => {
       setPassError('Please enter your password')
     }
     else{
+      // Sign in
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+    
       toast.success('Logged in!', {
         position: "top-right",
         autoClose: 5000,

@@ -26,6 +26,9 @@ const SignUpComponent = () => {
   const [usernameError, setUsernameError]=useState('')
   const [emailError, setEmailError]=useState('')
   const [passError, setPassError]=useState('')
+  const [confirmPass, setConfirmPass]=useState('')
+  const [confirmPassError, setConfirmPassError]=useState('')
+
   const navigate= useNavigate()
 
   // =========state part end
@@ -50,6 +53,11 @@ const SignUpComponent = () => {
     setPass(e.target.value)
     setPassError('')
   }
+
+  const handleConfirmPassword=(e)=>{
+    setConfirmPass(e.target.value)
+    setConfirmPassError('')
+  }
  // ==============function part end
 
 //  =============submit part start
@@ -67,8 +75,15 @@ const SignUpComponent = () => {
     if(!pass){
       setPassError('Please enter your password')
     }
+    if(!confirmPass){
+      setConfirmPassError('Please re-enter you password')
+    }
     else{
-      setLoading(true)
+      if(pass!=confirmPass){
+        setConfirmPassError('Passwords do not match')
+      }
+      else{
+        setLoading(true)
 
       createUserWithEmailAndPassword(auth, email, pass)
         .then((userCredential) => {
@@ -92,6 +107,7 @@ const SignUpComponent = () => {
         theme: "dark",
         transition: Bounce,
         });
+        // navigate to login page after signing up
         navigate('/')
         // email verification
         sendEmailVerification(auth.currentUser)
@@ -125,10 +141,9 @@ const SignUpComponent = () => {
               theme: "dark",
               transition: Bounce,
               });
-
           }
-          // ..
         });
+      }     
      
     }
 }
@@ -162,18 +177,18 @@ const SignUpComponent = () => {
                     <p className='passError text-[10px] text-red-600 font-montserrat mb-2'>{passError}</p>
                     
                     {/* ===============CONFIRM PASSWORD START============= */}
-                    {/* <label htmlFor="password" className='font-medium font-montserrat text-black'>Confirm Password</label><br />
+                    <label htmlFor="password" className='font-medium font-montserrat text-black'>Confirm Password</label><br />
                     <div className='relative'>
-              <input
-                type={showPass ? 'text' : 'password'}
-                onChange={handlePassword}
-                className='password rounded-md w-full p-2 outline outline-1 bg-white text-black font-montserrat font-light text-sm focus:outline-none focus:ring-2 focus:ring-[#FFB07F]' placeholder='Enter your password'
-              />
-              <span className='absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer' onClick={handleShowPass}>
-                {showPass ? <FaEye className='text-black'/> : <FaEyeSlash className='text-black'/>}
-              </span>
-            </div>                    
-                    <p className='passError text-[10px] text-red-600 font-montserrat'>{passError}</p> */}
+                      <input
+                        type={showPass ? 'text' : 'password'}
+                        onChange={handleConfirmPassword}
+                        className='password rounded-md w-full p-2 outline outline-1 bg-white text-black font-montserrat font-light text-sm focus:outline-none focus:ring-2 focus:ring-[#FFB07F]' placeholder='Re-enter your password'
+                      />
+                      <span className='absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer' onClick={handleShowPass}>
+                        {showPass ? <FaEye className='text-black'/> : <FaEyeSlash className='text-black'/>}
+                      </span>
+                    </div>                    
+                    <p className='confirmPassError text-[10px] text-red-600 font-montserrat'>{confirmPassError}</p>
                     
 
                     {/* ===============CONFIRM PASSWORD END============= */}
@@ -187,10 +202,8 @@ const SignUpComponent = () => {
                       :
                       <button className='w-full text-center text-white text-[15px] font-medium bg-[#8E3E63] hover:bg-[#FFB07F] hover:text-black ease-linear duration-200 my-7 py-[7px] p-[3px] rounded-md font-montserrat'>Sign Up</button>
 
-                    }
-                    
-                   
-                    
+                    }               
+                                      
                     {/* =========button end======== */}
                 </form>
                 <p className='text-center text-black'>Already have an account? <Link to='/' className='text-blue-400 underline'>Log In</Link></p>
