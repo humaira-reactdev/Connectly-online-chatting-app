@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react'
 import Lottie from 'lottie-react';
 import loginAnimation from '../../../public/images/loginAnimation.json'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import './Login.css'
@@ -9,9 +9,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { userData } from '../../Slice/userSlice';
 
 const LoginComponent = () => {
     const [showPass, setShowPass]=useState(false)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
   
   const handleShowPass=()=>{
     setShowPass(!showPass)
@@ -53,9 +58,10 @@ const LoginComponent = () => {
     }
     else{
       // Sign in
-      signInWithEmailAndPassword(auth, email, password)
+      signInWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         // Signed in
+        const user=userCredential.user;
         if(userCredential.user.emailVerified==false){
           toast.error('Email unverified. Please verify your email to log in.', {
             position: "top-right",
@@ -81,6 +87,8 @@ const LoginComponent = () => {
             theme: "dark",
             transition: Bounce,
             });
+            navigate('/')
+            dispatch(userData(user))
         }
         // ...
       })

@@ -108,7 +108,7 @@ const SignUpComponent = () => {
         transition: Bounce,
         });
         // navigate to login page after signing up
-        navigate('/')
+        navigate('/login')
         // email verification
         sendEmailVerification(auth.currentUser)
 
@@ -206,7 +206,7 @@ const SignUpComponent = () => {
                                       
                     {/* =========button end======== */}
                 </form>
-                <p className='text-center text-black'>Already have an account? <Link to='/' className='text-blue-400 underline'>Log In</Link></p>
+                <p className='text-center text-black'>Already have an account? <Link to='/login' className='text-blue-400 underline'>Log In</Link></p>
             </div>
         </div>
 
