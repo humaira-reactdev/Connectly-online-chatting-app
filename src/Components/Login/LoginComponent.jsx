@@ -11,9 +11,11 @@ import { Bounce } from 'react-toastify';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { userData } from '../../Slice/userSlice';
+import BeatLoader from "react-spinners/BeatLoader";
 
 const LoginComponent = () => {
     const [showPass, setShowPass]=useState(false)
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -58,6 +60,7 @@ const LoginComponent = () => {
     }
     else{
       // Sign in
+      setLoading(true)
       signInWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         // Signed in
@@ -87,12 +90,19 @@ const LoginComponent = () => {
             theme: "dark",
             transition: Bounce,
             });
+            
+              // ================SET DATA TO REDUX===================//
+              dispatch(userData(user))
+            // ===================SET DATA TO LOCALHOST===============//
+              localStorage.setItem('userData', JSON.stringify(user))
+            // =====================NAVIGATE TO HOMEPAGE==================//
             navigate('/')
-            dispatch(userData(user))
+            setLoading(false)
+           
         }
         // ...
       })
-      .catch((error) => {
+      .catch((error) => {        
         const errorCode = error.code;
         const errorMessage = error.message;
       });
@@ -137,7 +147,18 @@ useEffect(() => {
                     </div>                    
                     <p className='passError text-[10px] text-red-200 font-montserrat'>{passError}</p>
                     <Link to='/forgotpassword'>Forgot Password?</Link>
+                    {/* ============BUTTON START============== */}
+                    {
+                      loading?
+                      <div className='w-full text-center text-[15px] font-medium bg-[#91DDCF] my-7 py-[7px] p-[3px] rounded-md font-montserrat'>
+                      <BeatLoader color='#fff' size='10px'/>
+                    </div>
+                    :
                     <button className='w-full text-center text-black text-[15px] font-medium bg-[#91DDCF] hover:bg-[#FFB07F] ease-linear duration-200 my-7 py-[7px] p-[3px] rounded-md font-montserrat'>Log In</button>
+                    }
+                    
+                    
+                    {/* =================BUTTON END================ */}
                 </form>
                 <p className='text-center'>New here? <Link to='/signup' className='text-blue-400 underline'>Sign up</Link></p>
             </div>

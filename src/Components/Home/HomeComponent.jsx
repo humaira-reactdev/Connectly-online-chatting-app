@@ -13,13 +13,13 @@ const HomeComponent = () => {
             <div className="flex items-center px-6 py-4">
               <img
                 className="w-16 h-16 object-cover rounded-full"
-                src='https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
+                src={currentUserData?.photoURL}
                 alt='profile image'
               />
               <div className="ml-4">
-                <h2 className="text-xl font-semibold text-white">name</h2>
-                <p className="text-gray-200">description</p>
-                <p className="text-gray-200 mt-2">email</p>
+                <h2 className="text-xl font-semibold text-white">{currentUserData?.displayName}</h2>
+                <p className="text-gray-200">{currentUserData?.description}</p>
+                <p className="text-gray-200 mt-2">{currentUserData?.email}</p>
               </div>
             </div>
           </div>      
