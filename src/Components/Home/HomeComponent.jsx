@@ -7,7 +7,8 @@ const HomeComponent = () => {
 
 
   return (
-    <>    
+    <>
+    <div className='flex justify-center items-center min-h-screen'>
       <div className='profileCard text-black'>   
               <div className="max-w-sm mx-auto bg-[#8E3E63] shadow-lg rounded-lg overflow-hidden">
             <div className="flex items-center px-6 py-4">
@@ -23,7 +24,10 @@ const HomeComponent = () => {
               </div>
             </div>
           </div>      
-          </div>   
+          </div> 
+    </div>
+
+        
        
     </>
   )

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import LoginPage from './Pages/LoginPage'
@@ -9,9 +9,22 @@ import ForgotPassPage from './Pages/ForgotPassPage'
 import NotFound from './Pages/NotFound'
 import LayoutOne from './Layouts/LayoutOne'
 import Homepage from './Pages/Homepage'
+import { useDispatch } from 'react-redux'
+import { userData } from './Slice/userSlice'
 
 
 function App() {
+
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+        // Retrieve user data from localStorage on page load
+        const storedUserData = localStorage.getItem('userData');
+        if (storedUserData) {
+            dispatch(userData(JSON.parse(storedUserData)));
+        }
+    }, [dispatch]);
+    
   const route=createBrowserRouter(
     createRoutesFromElements(
       <Route>
