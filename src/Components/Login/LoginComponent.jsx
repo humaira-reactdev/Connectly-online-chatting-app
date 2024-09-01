@@ -78,6 +78,9 @@ const LoginComponent = () => {
             transition: Bounce,
             });
         }
+        // else if(){
+
+        // }
         else{
           toast.success('Logged in!', {
             position: "top-right",
@@ -105,6 +108,22 @@ const LoginComponent = () => {
       .catch((error) => {        
         const errorCode = error.code;
         const errorMessage = error.message;
+        if(errorCode=='auth/invalid-credential'){
+          setLoading(false)
+          toast.error('Incorrect Password', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            });
+            console.log(errorMessage)
+
+        }
       });
     
       
