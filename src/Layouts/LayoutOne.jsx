@@ -20,7 +20,12 @@ const LayoutOne = () => {
 
   return (
     <>
-        <Outlet/>
+      <div className="flex min-h-screen">
+        <Navbar/>
+        <div className="flex-grow">
+          <Outlet/>
+        </div>          
+      </div>
     </>
   )
 }
