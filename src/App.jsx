@@ -11,6 +11,8 @@ import LayoutOne from './Layouts/LayoutOne'
 import Homepage from './Pages/Homepage'
 import { useDispatch } from 'react-redux'
 import { userData } from './Slice/userSlice'
+import Messages from './Pages/Messages'
+import People from './Pages/People'
 
 
 function App() {
@@ -33,6 +35,9 @@ function App() {
         <Route path='/forgotpassword' element={<ForgotPassPage/>}/>
         <Route path='/' element={<LayoutOne/>}>
           <Route index element = {<Homepage/>}/>
+          <Route path='/messages' element={<Messages/>}/>
+          <Route path='/people' element={<People/>}/>      
+          
         </Route>
         <Route path='*' element={<NotFound/>}/>      
       </Route>
