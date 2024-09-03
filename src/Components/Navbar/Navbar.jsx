@@ -7,9 +7,10 @@ import { NavLink } from 'react-router-dom';
 const Navbar = () => {
   return (
     <>
-    <div className="h-screen bg-[#8E3E63] text-white flex flex-col justify-between w-64">
+    <div className="h-screen bg-[#8E3E63] text-white flex flex-col justify-between w-64 font-montserrat">
       {/* Navbar Options */}
       <div className="mt-10">
+        <img src="images/logoWhite.png" alt="" className='h-[80px] w-[100px] mx-auto mb-[50px]'/>
         <NavLink to='/people' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <BsPeopleFill className="mr-3 text-xl" />
           <span className="text-lg">People</span>
