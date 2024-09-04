@@ -3,8 +3,11 @@ import { TbMessageCircleFilled } from "react-icons/tb";
 import { BsPeopleFill } from "react-icons/bs";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+  const currentUserData = useSelector((state) => state.counter.value)
+
   return (
     <>
     <div className="h-screen bg-[#8E3E63] text-white flex flex-col justify-between w-64 font-montserrat">
@@ -29,11 +32,11 @@ const Navbar = () => {
       <div className="flex items-center px-6 py-3 bg-[#8E3E63]">
         <img
           className="w-12 h-12 object-cover rounded-full"
-          src="https://via.placeholder.com/150"
+          src={currentUserData?.photoURL}
           alt="Profile"
         />
         <div className="ml-3">
-          <h2 className="text-lg  font-semibold">John Doe</h2>
+          <h2 className="text-lg  font-semibold">{currentUserData?.displayName}</h2>
         </div>
       </div>
     </div>    

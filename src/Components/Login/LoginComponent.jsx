@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { useDispatch } from 'react-redux';
 import { userData } from '../../Slice/userSlice';
 import BeatLoader from "react-spinners/BeatLoader";
@@ -33,6 +34,7 @@ const LoginComponent = () => {
   // =========state part end
 
   // =======firebase variables
+  const db = getDatabase();
   const auth = getAuth();
 
   // ===========function part start 
@@ -101,7 +103,11 @@ const LoginComponent = () => {
             // =====================NAVIGATE TO HOMEPAGE==================//
             navigate('/')
             setLoading(false)
-           
+            set(ref(db, 'AllUsers/'+user.uid), {
+              userName: user.displayName,
+              userPhoto: user.photoURL,
+              userID: user.uid,
+            });           
         }
         // ...
       })

@@ -1,24 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { IoPersonAdd } from "react-icons/io5";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 const PeopleComponent = () => {
-  const users = [
-    {
-      id: 1,
-      profilePicture: "https://via.placeholder.com/100",
-      name: "John Doe",
-    },
-    {
-      id: 2,
-      profilePicture: "https://via.placeholder.com/100",
-      name: "Jane Smith",
-    },
-    {
-      id: 3,
-      profilePicture: "https://via.placeholder.com/100",
-      name: "Sam Johnson",
-    },
-    // Add more users as needed
-  ];
+  // ================variables===========//
+  const [allusers, setAllusers]=useState([])
+    
+  // ===========firebase variables============//
+  const db = getDatabase();
+  // =============get data from realtime database=========//
+  useEffect(()=>{
+    const starCountRef = ref(db, 'AllUsers/');
+    onValue(starCountRef, (snapshot) => {
+      let arr=[]
+      snapshot.forEach((item)=>{
+        arr.push(item.val())
+      })
+      setAllusers(arr)    
+});
+
+  },[])
+
+  
   return (
     <>
       <div className="min-h-screen bg-gray-100 py-8 font-montserrat text-[#363636]">
@@ -40,8 +43,8 @@ const PeopleComponent = () => {
                 {user.name}
               </span>
             </div>
-            <button className="text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-1 px-3 rounded">
-              Add
+            <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+            <IoPersonAdd className='text-[15px]'/>Add
             </button>
           </div>
         ))}
