@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 const HomeComponent = () => {
   // =====================DATA FETCH FROM SLICE===============//
-  const currentUserData = useSelector((state) => state.counter.value)
+  const currentUserData = useSelector((state) => state.counter.userData)
 
   return (
     <>

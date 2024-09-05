@@ -95,20 +95,21 @@ const LoginComponent = () => {
             theme: "dark",
             transition: Bounce,
             });
-            
-              // ================SET DATA TO REDUX===================//
+            setLoading(false)
+          }            
+            // ================SET DATA TO REDUX===================//
               dispatch(userData(user))
             // ===================SET DATA TO LOCALHOST===============//
               localStorage.setItem('userData', JSON.stringify(user))
             // =====================NAVIGATE TO HOMEPAGE==================//
             navigate('/')
-            setLoading(false)
+            
             set(ref(db, 'AllUsers/'+user.uid), {
               userName: user.displayName,
               userPhoto: user.photoURL,
               userID: user.uid,
             });           
-        }
+        
         // ...
       })
       .catch((error) => {        

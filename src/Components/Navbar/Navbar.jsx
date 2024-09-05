@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Navbar = () => {
-  const currentUserData = useSelector((state) => state.counter.value)
+  const currentUserData = useSelector((state) => state.counter.userData)
 
   return (
     <>
