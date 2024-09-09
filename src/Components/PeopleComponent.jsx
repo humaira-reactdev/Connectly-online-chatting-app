@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from 'react'
 import { IoPersonAdd } from "react-icons/io5";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from 'react-redux';
 
 const PeopleComponent = () => {
+  //============get data from redux==============//
+  const currentUserData = useSelector((state) => state.counter.userData)
+  console.log(currentUserData)
   // ================variables===========//
   const [allusers, setAllusers]=useState([])
     
   // ===========firebase variables============//
   const db = getDatabase();
+
   // =============get data from realtime database=========//
   useEffect(()=>{
+    if (currentUserData) {
     const starCountRef = ref(db, 'AllUsers/');
     onValue(starCountRef, (snapshot) => {
       let arr=[]
       snapshot.forEach((item)=>{
-        arr.push(item.val())
+        console.log(item.val())
+        // in firebase, uid is stored as userID, and in redux, its uid. so I'm comparing userID and uid
+        if(currentUserData && String(item.val().userID)!=String(currentUserData.uid)){
+          arr.push(item.val())
+        }
+        
       })
       setAllusers(arr)    
-});
+    });
+  }
 
-  },[])
+  },[currentUserData,db])
 
   
   return (
@@ -29,7 +41,7 @@ const PeopleComponent = () => {
       <h2 className='text-xl font-regular text-center mb-8'>Add new friends and start a conversation</h2>
       {
         allusers.map((item)=>(
-          <div className="max-w-3xl mx-auto">        
+          <div className="max-w-3xl mx-auto" key={item.userID}>        
           <div
             key=''
             className="flex items-center justify-between p-4 bg-white shadow-md rounded-lg mb-4"
