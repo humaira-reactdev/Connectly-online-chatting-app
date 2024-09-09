@@ -23,7 +23,7 @@ const ForgotPassComponent = () => {
       sendPasswordResetEmail(auth, email)
       .then(() => {
         alert('Password reset email sent!')
-        navigate('/')        
+        navigate('/login')        
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -37,7 +37,8 @@ function App() {
           <Route path='/messages' element={<Messages/>}/>
           <Route path='/people' element={<People/>}/>
           <Route path='/friends' element={<FriendsPage/>}/>
-          <Route path='/blocked' element={<BlockedPage/>}/>    
+          <Route path='/blocked' element={<BlockedPage/>}/>
+          <Route path='/requests' element={<FriendsPage/>}/>    
         </Route>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignUpPage/>}/>
