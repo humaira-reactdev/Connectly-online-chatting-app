@@ -79,6 +79,7 @@ const LoginComponent = () => {
             theme: "dark",
             transition: Bounce,
             });
+            setLoading(false)
         }
         // else if(){
 
@@ -96,9 +97,8 @@ const LoginComponent = () => {
             transition: Bounce,
             });
             setLoading(false)
-          }            
             // ================SET DATA TO REDUX===================//
-              dispatch(userData(user))
+            dispatch(userData(user))
             // ===================SET DATA TO LOCALHOST===============//
               localStorage.setItem('userData', JSON.stringify(user))
             // =====================NAVIGATE TO HOMEPAGE==================//
@@ -108,9 +108,9 @@ const LoginComponent = () => {
               userName: user.displayName,
               userPhoto: user.photoURL,
               userID: user.uid,
-            });           
-        
-        // ...
+            });     
+          }            
+                  
       })
       .catch((error) => {        
         const errorCode = error.code;

@@ -10,7 +10,7 @@ const Navbar = () => {
 
   return (
     <>
-    <div className="h-screen bg-[#8E3E63] text-white flex flex-col justify-between w-64 font-montserrat">
+    <div className="min-h-screen bg-[#8E3E63] text-white flex flex-col justify-between w-64 font-montserrat">
       {/* Navbar Options */}
       <div className="mt-10">
         <img src="images/logoWhite.png" alt="" className='h-[80px] w-[100px] mx-auto mb-[50px]'/>
