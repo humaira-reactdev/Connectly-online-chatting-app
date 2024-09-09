@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux'
 import { userData } from './Slice/userSlice'
 import Messages from './Pages/Messages'
 import People from './Pages/People'
+import FriendsPage from './Pages/FriendsPage'
+import BlockedPage from './Pages/BlockedPage'
 
 
 function App() {
@@ -33,11 +35,14 @@ function App() {
         <Route path='/' element={<LayoutOne/>}>
           <Route index element = {<Homepage/>}/>
           <Route path='/messages' element={<Messages/>}/>
-          <Route path='/people' element={<People/>}/>    
+          <Route path='/people' element={<People/>}/>
+          <Route path='/friends' element={<FriendsPage/>}/>
+          <Route path='/blocked' element={<BlockedPage/>}/>    
         </Route>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignUpPage/>}/>
         <Route path='/forgotpassword' element={<ForgotPassPage/>}/>
+        
         <Route path='*' element={<NotFound/>}/>      
       </Route>
 

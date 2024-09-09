@@ -2,6 +2,8 @@ import React from 'react'
 import { TbMessageCircleFilled } from "react-icons/tb";
 import { BsPeopleFill } from "react-icons/bs";
 import { RiAccountCircleFill } from "react-icons/ri";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { ImBlocked } from "react-icons/im";
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -18,6 +20,10 @@ const Navbar = () => {
           <BsPeopleFill className="mr-3 text-xl" />
           <span className="text-lg">People</span>
         </NavLink>
+        <NavLink to='/friends' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
+          <FaPeopleGroup className="mr-3 text-xl" />
+          <span className="text-lg">Friends</span>
+        </NavLink>
         <NavLink to="/messages" className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <TbMessageCircleFilled className="mr-3 text-xl" />
           <span className="text-lg">Messages</span>
@@ -25,6 +31,10 @@ const Navbar = () => {
         <NavLink to='/' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <RiAccountCircleFill className="mr-3 text-xl" />
           <span className="text-lg">Profile</span>
+        </NavLink>
+        <NavLink to='/blocked' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
+          <ImBlocked className="mr-3 text-xl" />
+          <span className="text-lg">Blocked</span>
         </NavLink>
       </div>
 

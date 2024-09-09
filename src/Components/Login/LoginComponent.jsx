@@ -102,8 +102,7 @@ const LoginComponent = () => {
             // ===================SET DATA TO LOCALHOST===============//
               localStorage.setItem('userData', JSON.stringify(user))
             // =====================NAVIGATE TO HOMEPAGE==================//
-            navigate('/')
-            
+            navigate('/')            
             set(ref(db, 'AllUsers/'+user.uid), {
               userName: user.displayName,
               userPhoto: user.photoURL,
@@ -117,7 +116,7 @@ const LoginComponent = () => {
         const errorMessage = error.message;
         if(errorCode=='auth/invalid-credential'){
           setLoading(false)
-          toast.error('Incorrect Password', {
+          toast.error('Incorrect Email or Password', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -149,7 +148,7 @@ useEffect(() => {
   return (
     <>
         
-        <div className='login flex justify-center gap-[250px] mt-[150px]'>
+        <div className='login flex justify-center gap-[250px] mt-[150px] font-montserrat'>
             <div className='loginAnimation '>
             <Lottie animationData={loginAnimation} loop={true} className='w-[450px]'/>
             </div>
@@ -172,7 +171,7 @@ useEffect(() => {
                       </span>
                     </div>                    
                     <p className='passError text-[10px] text-red-200 font-montserrat'>{passError}</p>
-                    <Link to='/forgotpassword'>Forgot Password?</Link>
+                    <Link to='/forgotpassword' className='text-[12px]'>Forgot Password?</Link>
                     {/* ============BUTTON START============== */}
                     {
                       loading?
