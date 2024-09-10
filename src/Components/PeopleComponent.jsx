@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IoPersonAdd } from "react-icons/io5";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, set } from "firebase/database";
 import { useSelector } from 'react-redux';
 
 const PeopleComponent = () => {
@@ -23,7 +23,7 @@ const PeopleComponent = () => {
         console.log(item.val())
         // in firebase, uid is stored as userID, and in redux, its uid. so I'm comparing userID and uid
         if(currentUserData && String(item.val().userID)!=String(currentUserData.uid)){
-          arr.push(item.val())
+          arr.push({...item.val(), key: item.key})
         }
         
       })
@@ -33,6 +33,14 @@ const PeopleComponent = () => {
 
   },[currentUserData,db])
 
+  // =======================functions start=================//
+  const handleAdd = (friendData)=>{
+    set(ref(db, 'friendrequests/'), {
+      name: 'new request'
+    });
+  }
+
+
   
   return (
     <>
@@ -41,7 +49,7 @@ const PeopleComponent = () => {
       <h2 className='text-xl font-regular text-center mb-8'>Add new friends and start a conversation</h2>
       {
         allusers.map((item)=>(
-          <div className="max-w-3xl mx-auto" key={item.userID}>        
+          <div className="max-w-3xl mx-auto" key={item.key}>        
           <div
             key=''
             className="flex items-center justify-between p-4 bg-white shadow-md rounded-lg mb-4"
@@ -55,7 +63,7 @@ const PeopleComponent = () => {
               <span className="ml-4 text-lg font-semibold text-[#363636]">{item.userName}             
               </span>
             </div>
-            <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+            <button onClick={()=>handleAdd(item)} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
             <IoPersonAdd className='text-[15px]'/>Add
             </button>
           </div>

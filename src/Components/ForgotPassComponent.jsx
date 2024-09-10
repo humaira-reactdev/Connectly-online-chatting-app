@@ -54,7 +54,7 @@ const ForgotPassComponent = () => {
           />
         </div>
         <div className="mb-4">
-          <a href="/" className="text-white hover:text-[#FFB07F] ease-linear duration-300 font-montserrat">
+          <a href="/login" className="text-white hover:text-[#FFB07F] ease-linear duration-300 font-montserrat">
             Back to login
           </a>
         </div>

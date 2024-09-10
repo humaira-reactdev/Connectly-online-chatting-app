@@ -150,7 +150,7 @@ const SignUpComponent = () => {
 //  =============submit part end
   return (
     <>      
-      <div className='login flex justify-center items-center gap-[250px] mt-[100px]'>
+      <div className='login flex justify-center items-center gap-[250px] mt-[100px] font-montserrat'>
             <div className='loginAnimation '>
             <Lottie animationData={loginAnimation} loop={true} className='w-[450px]'/>
             </div>
@@ -206,7 +206,7 @@ const SignUpComponent = () => {
                                       
                     {/* =========button end======== */}
                 </form>
-                <p className='text-center text-black'>Already have an account? <Link to='/login' className='text-blue-400 underline'>Log In</Link></p>
+                <p className='text-center text-black text-[14px]'>Already have an account? <Link to='/login' className='text-blue-400 underline'>Log In</Link></p>
             </div>
         </div>
 
