@@ -36,7 +36,13 @@ const PeopleComponent = () => {
   // =======================functions start=================//
   const handleAdd = (friendData)=>{
     set(ref(db, 'friendrequests/'), {
-      name: 'new request'
+      senderID: currentUserData.uid,
+      senderName: currentUserData.displayName,
+      senderPhoto: currentUserData.photoURL,
+      receiverId:friendData.userID,
+      receiverName: friendData.userName,
+      receiverPhoto: friendData.userPhoto
+
     });
   }
 

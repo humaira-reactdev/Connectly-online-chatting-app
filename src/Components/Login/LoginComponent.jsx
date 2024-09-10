@@ -102,7 +102,8 @@ const LoginComponent = () => {
             // ===================SET DATA TO LOCALHOST===============//
               localStorage.setItem('userData', JSON.stringify(user))
             // =====================NAVIGATE TO HOMEPAGE==================//
-            navigate('/')            
+            navigate('/')     
+            //==========send data to realtime database======//  
             set(ref(db, 'AllUsers/'+user.uid), {
               userName: user.displayName,
               userPhoto: user.photoURL,
