@@ -15,6 +15,7 @@ import Messages from './Pages/Messages'
 import People from './Pages/People'
 import FriendsPage from './Pages/FriendsPage'
 import BlockedPage from './Pages/BlockedPage'
+import FriendRequestsPage from './Pages/FriendRequestsPage'
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
           <Route path='/people' element={<People/>}/>
           <Route path='/friends' element={<FriendsPage/>}/>
           <Route path='/blocked' element={<BlockedPage/>}/>
-          <Route path='/requests' element={<FriendsPage/>}/>    
+          <Route path='/requests' element={<FriendRequestsPage/>}/>    
         </Route>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignUpPage/>}/>

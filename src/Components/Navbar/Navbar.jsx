@@ -21,13 +21,14 @@ const Navbar = () => {
           <BsPeopleFill className="mr-3 text-xl" />
           <span className="text-lg">People</span>
         </NavLink>
-        <NavLink to='/friends' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
-          <FaPeopleGroup className="mr-3 text-xl" />
-          <span className="text-lg">Friends</span>
-        </NavLink>
+        
         <NavLink to='/requests' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <HiUserAdd className="mr-3 text-xl" />
           <span className="text-lg">Friend Requests</span>
+        </NavLink>
+        <NavLink to='/friends' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
+          <FaPeopleGroup className="mr-3 text-xl" />
+          <span className="text-lg">Friends</span>
         </NavLink>
         <NavLink to="/messages" className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <TbMessageCircleFilled className="mr-3 text-xl" />

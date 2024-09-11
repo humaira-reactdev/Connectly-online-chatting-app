@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoPersonAdd } from "react-icons/io5";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { MdNotInterested } from "react-icons/md";
+import { getDatabase, ref, onValue, set, push } from "firebase/database";
 import { useSelector } from 'react-redux';
 
 const PeopleComponent = () => {
@@ -35,7 +36,7 @@ const PeopleComponent = () => {
 
   // =======================functions start=================//
   const handleAdd = (friendData)=>{
-    set(ref(db, 'friendrequests/'), {
+    set(push(ref(db, 'friendrequests/')), {
       senderID: currentUserData.uid,
       senderName: currentUserData.displayName,
       senderPhoto: currentUserData.photoURL,
@@ -69,9 +70,16 @@ const PeopleComponent = () => {
               <span className="ml-4 text-lg font-semibold text-[#363636]">{item.userName}             
               </span>
             </div>
+
+            <div className='flex gap-[10px]'>
             <button onClick={()=>handleAdd(item)} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
-            <IoPersonAdd className='text-[15px]'/>Add
+              <IoPersonAdd className='text-[15px]'/>Add
             </button>
+            <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+              <MdNotInterested className='text-[15px]'/>Block
+            </button>
+            </div>
+            
           </div>
         
       </div>
