@@ -37,46 +37,19 @@ const sliceUserData = useSelector((state) => state.counter.userData)
   const handleConfirm=(data)=>{
 
     // // ==============add data to friends============//
-    // set(push(ref(db, 'friends/')))
+    set(push(ref(db, 'friends/')),{
+      currentUserID: sliceUserData.uid,
+      currentUsername: sliceUserData.displayName,
+      currentUserphoto: sliceUserData.photoURL,
+      friendID: data.senderID,
+      friendName: data.senderName,
+      friendPhoto: data.senderPhoto
+    })
 
     // // =======remove data from friendrequests====//
-    // remove(ref(db, 'friendrequests/'+data.key)),{
-    //   currentUserID: sliceUserData.uid,
-    //   currentUsername: sliceUserData.displayName,
-    //   currentUserphoto: sliceUserData.photoURL,
-    //   friendID: data.senderID,
-    //   friendName: data.senderName,
-    //   friendPhoto: data.senderPhoto
-    // }
+    remove(ref(db, 'friendrequests/'+data.key))
 
-    // Add data to the friends node
-  const friendData = {
-    currentUserID: sliceUserData.uid,
-    currentUsername: sliceUserData.displayName,
-    currentUserphoto: sliceUserData.photoURL,
-    friendID: data.senderID,
-    friendName: data.senderName,
-    friendPhoto: data.senderPhoto
-  };
-
-  // Push the friend data into the 'friends' node
-  const newFriendRef = push(ref(db, 'friends/' + sliceUserData.uid));
-  set(newFriendRef, friendData)
-    .then(() => {
-      console.log('Friend added successfully');
-      
-      // Remove the friend request from 'friendrequests'
-      return remove(ref(db, 'friendrequests/' + data.key));
-    })
-    .then(() => {
-      console.log('Friend request removed successfully');
-    })
-    .catch((error) => {
-      console.error('Error confirming friend request:', error);
-    });
   }
-
-
 
   return (
     <>
