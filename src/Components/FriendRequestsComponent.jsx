@@ -3,8 +3,13 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { MdNotInterested } from "react-icons/md";
 import { FaTimesCircle } from "react-icons/fa";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { useSelector } from 'react-redux';
+
+
 
 const FriendRequestsComponent = () => {
+  // ==================get data from redux==================//
+const sliceUserData = useSelector((state) => state.counter.userData)
   // ===================states==============//
   const [friendRequest, setFriendrequest]=useState([])
 
@@ -18,7 +23,9 @@ const FriendRequestsComponent = () => {
         onValue(starCountRef, (snapshot) => {
           let arr= []
           snapshot.forEach((item)=>{
-            arr.push({...item.val(), key:item.key})
+            if(item.val().receiverId==sliceUserData.uid){
+              arr.push({...item.val(), key:item.key})
+            }              
           })
           setFriendrequest(arr)
       });    
@@ -49,7 +56,7 @@ const FriendRequestsComponent = () => {
               </span>
             </div>
             <div className='flex gap-[10px]'>
-              <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+              <button onClick={} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
               <FaCircleCheck className='text-[15px]'/>Accept
               </button>
               <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
