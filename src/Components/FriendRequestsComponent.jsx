@@ -2,22 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { FaCircleCheck } from "react-icons/fa6";
 import { MdNotInterested } from "react-icons/md";
 import { FaTimesCircle } from "react-icons/fa";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, remove, set, push } from "firebase/database";
 import { useSelector } from 'react-redux';
 
 
 
 const FriendRequestsComponent = () => {
+
   // ==================get data from redux==================//
 const sliceUserData = useSelector((state) => state.counter.userData)
+
   // ===================states==============//
   const [friendRequest, setFriendrequest]=useState([])
 
   // ================firebase variables========//
   const db = getDatabase();
 
-  // ===========functions================//
-
+  // ===========functions================// 
   useEffect(()=>{
     const starCountRef = ref(db, 'friendrequests/');
         onValue(starCountRef, (snapshot) => {
@@ -31,6 +32,49 @@ const sliceUserData = useSelector((state) => state.counter.userData)
       });    
 
   },[])
+
+  // =============CONFIRM FRIEND REQUEST===========//
+  const handleConfirm=(data)=>{
+
+    // // ==============add data to friends============//
+    // set(push(ref(db, 'friends/')))
+
+    // // =======remove data from friendrequests====//
+    // remove(ref(db, 'friendrequests/'+data.key)),{
+    //   currentUserID: sliceUserData.uid,
+    //   currentUsername: sliceUserData.displayName,
+    //   currentUserphoto: sliceUserData.photoURL,
+    //   friendID: data.senderID,
+    //   friendName: data.senderName,
+    //   friendPhoto: data.senderPhoto
+    // }
+
+    // Add data to the friends node
+  const friendData = {
+    currentUserID: sliceUserData.uid,
+    currentUsername: sliceUserData.displayName,
+    currentUserphoto: sliceUserData.photoURL,
+    friendID: data.senderID,
+    friendName: data.senderName,
+    friendPhoto: data.senderPhoto
+  };
+
+  // Push the friend data into the 'friends' node
+  const newFriendRef = push(ref(db, 'friends/' + sliceUserData.uid));
+  set(newFriendRef, friendData)
+    .then(() => {
+      console.log('Friend added successfully');
+      
+      // Remove the friend request from 'friendrequests'
+      return remove(ref(db, 'friendrequests/' + data.key));
+    })
+    .then(() => {
+      console.log('Friend request removed successfully');
+    })
+    .catch((error) => {
+      console.error('Error confirming friend request:', error);
+    });
+  }
 
 
 
@@ -56,7 +100,7 @@ const sliceUserData = useSelector((state) => state.counter.userData)
               </span>
             </div>
             <div className='flex gap-[10px]'>
-              <button onClick={} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+              <button onClick={()=>handleConfirm(item)} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
               <FaCircleCheck className='text-[15px]'/>Accept
               </button>
               <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
