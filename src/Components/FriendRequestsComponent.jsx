@@ -51,6 +51,11 @@ const sliceUserData = useSelector((state) => state.counter.userData)
 
   }
 
+  // =============decline friend request===============//
+  const handleDecline=(data)=>{
+    remove(ref(db, 'friendrequests/'+data.key))
+  }
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 py-8 font-montserrat text-[#363636]">
@@ -76,7 +81,7 @@ const sliceUserData = useSelector((state) => state.counter.userData)
               <button onClick={()=>handleConfirm(item)} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
               <FaCircleCheck className='text-[15px]'/>Accept
               </button>
-              <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+              <button onClick={()=>handleDecline(item)} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
               <FaTimesCircle className='text-[15px]'/>Decline
               </button>
               <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">

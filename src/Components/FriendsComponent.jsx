@@ -40,8 +40,8 @@ const FriendsComponent = () => {
               <div className="flex items-center">
                 <img
                   className="w-12 h-12 object-cover rounded-full"
-                  src={item.friendPhoto} // Assuming there's a `profilePicture` property
-                  alt='profile picture'      // Assuming there's a `username` property
+                  src={item.friendPhoto}
+                  alt='profile picture'     
                 />
                 <span className="ml-4 text-lg font-semibold text-[#363636]">
                   {item.friendName}
