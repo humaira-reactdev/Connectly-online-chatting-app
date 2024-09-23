@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 const PeopleComponent = () => {
   //============get data from redux==============//
   const sliceUserData = useSelector((state) => state.counter.userData)
-  console.log(sliceUserData)
   // ================state variables===========//
   const [allusers, setAllusers]=useState([])
   const [requestStatus, setRequestStatus]=useState({});

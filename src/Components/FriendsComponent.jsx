@@ -4,6 +4,9 @@ import { IoPersonRemove } from "react-icons/io5";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 const FriendsComponent = () => {
+   //============get data from redux==============//
+   const sliceUserData = useSelector((state) => state.counter.userData)
+      
   // =================custom hooks================//
   const [friends, setFriends] = useState([]);
   // =====================firebase variables===================//
@@ -14,7 +17,12 @@ const FriendsComponent = () => {
     onValue(starCountRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
-        arr.push({ ...item.val(), key: item.key });
+        if(item.val().currentUserID==sliceUserData.uid){
+          arr.push({ friendID:item.val().friendID, friendName: item.val().friendName, friendPhoto: item.val().friendPhoto });
+        }else if (item.val().friendID==sliceUserData.uid){
+          arr.push({friendID: item.val().currentUserID, friendName: item.val().currentUsername, friendPhoto: item.val().currentUserphoto})
+        }
+        
       });
       setFriends(arr);
     });
