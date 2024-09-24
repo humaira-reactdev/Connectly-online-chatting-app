@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { MdNotInterested } from "react-icons/md";
 import { IoPersonRemove } from "react-icons/io5";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, remove } from "firebase/database";
+import { useSelector } from 'react-redux';
 
 const FriendsComponent = () => {
    //============get data from redux==============//
@@ -12,15 +13,16 @@ const FriendsComponent = () => {
   // =====================firebase variables===================//
   const db = getDatabase();
 
+  //=====================function to display friends===================//
   useEffect(() => {
     const starCountRef = ref(db, 'friends/');
     onValue(starCountRef, (snapshot) => {
       let arr = [];
       snapshot.forEach((item) => {
         if(item.val().currentUserID==sliceUserData.uid){
-          arr.push({ friendID:item.val().friendID, friendName: item.val().friendName, friendPhoto: item.val().friendPhoto });
+          arr.push({ friendID:item.val().friendID, friendName: item.val().friendName, friendPhoto: item.val().friendPhoto, key:item.key });
         }else if (item.val().friendID==sliceUserData.uid){
-          arr.push({friendID: item.val().currentUserID, friendName: item.val().currentUsername, friendPhoto: item.val().currentUserphoto})
+          arr.push({friendID: item.val().currentUserID, friendName: item.val().currentUsername, friendPhoto: item.val().currentUserphoto, key: item.key})
         }
         
       });
@@ -28,6 +30,20 @@ const FriendsComponent = () => {
     });
   }, [db]);
 
+  // ===================block function=======================//
+  const handleBlock =(friendData)=>{
+    //add to blocklist
+    set(push(ref(db, 'blocklist/')), {
+      currentUserID: sliceUserData.uid,
+      currentUsername: sliceUserData.displayName,
+      currentUserphoto: sliceUserData.photoURL,
+      friendID: friendData.friendID,
+      friendName: friendData.friendName,
+      friendPhoto: friendData.friendPhoto
+    });
+    // remove from friendlist
+    remove(ref(db, 'friends/'+friendData.key))
+  } 
   return (
     <>
       <div className="min-h-screen bg-gray-100 py-8 font-montserrat text-[#363636]">
@@ -60,7 +76,7 @@ const FriendsComponent = () => {
                   <IoPersonRemove className="text-[15px]" />
                   Unfriend
                 </button>
-                <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+                <button onClick={()=>handleBlock(item)} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
                   <MdNotInterested className="text-[15px]" />
                   Block
                 </button>
