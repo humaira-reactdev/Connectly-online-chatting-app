@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { MdNotInterested } from "react-icons/md";
 import { IoPersonRemove } from "react-icons/io5";
-import { getDatabase, ref, onValue, remove, set } from "firebase/database";
+import { getDatabase, ref, onValue, remove, set, push } from "firebase/database";
 import { useSelector } from 'react-redux';
 
 const FriendsComponent = () => {

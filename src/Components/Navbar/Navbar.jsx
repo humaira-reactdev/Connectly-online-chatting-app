@@ -5,6 +5,7 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { ImBlocked } from "react-icons/im";
 import { HiUserAdd } from "react-icons/hi";
+import { IoMdNotifications } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -20,11 +21,14 @@ const Navbar = () => {
         <NavLink to='/people' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <BsPeopleFill className="mr-3 text-xl" />
           <span className="text-lg">People</span>
-        </NavLink>
-        
+        </NavLink>        
         <NavLink to='/requests' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <HiUserAdd className="mr-3 text-xl" />
           <span className="text-lg">Friend Requests</span>
+        </NavLink>
+        <NavLink to='/notifications' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
+          <IoMdNotifications className="mr-3 text-xl" />
+          <span className="text-lg">Notifications</span>
         </NavLink>
         <NavLink to='/friends' className={({ isActive }) => isActive?"flex items-center px-6 py-3 cursor-pointer bg-[#5c263f] ":"flex items-center px-6 py-3 cursor-pointer hover:bg-[#b45f86]"}>
           <FaPeopleGroup className="mr-3 text-xl" />

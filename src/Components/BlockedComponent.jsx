@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CgUnblock } from "react-icons/cg";
+import { useSelector } from 'react-redux';
+import { getDatabase, ref, onValue } from "firebase/database";
 
 
 const BlockedComponent = () => {
@@ -17,7 +19,7 @@ const BlockedComponent = () => {
   // ====================functions===========//
 
   useEffect(()=>{
-    const starCountRef = ref(db,'blockedList/');
+    const starCountRef = ref(db,'blocklist/');
       onValue(starCountRef, (snapshot) => {
       let arr=[]
       snapshot.forEach((item)=>{

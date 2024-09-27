@@ -16,6 +16,7 @@ import People from './Pages/People'
 import FriendsPage from './Pages/FriendsPage'
 import BlockedPage from './Pages/BlockedPage'
 import FriendRequestsPage from './Pages/FriendRequestsPage'
+import NotificationComponent from './Components/NotificationComponent'
 
 
 function App() {
@@ -39,7 +40,8 @@ function App() {
           <Route path='/people' element={<People/>}/>
           <Route path='/friends' element={<FriendsPage/>}/>
           <Route path='/blocked' element={<BlockedPage/>}/>
-          <Route path='/requests' element={<FriendRequestsPage/>}/>    
+          <Route path='/requests' element={<FriendRequestsPage/>}/>
+          <Route path='/notifications' element={<NotificationComponent/>}/>       
         </Route>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignUpPage/>}/>
