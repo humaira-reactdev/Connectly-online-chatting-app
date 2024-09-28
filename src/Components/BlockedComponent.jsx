@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CgUnblock } from "react-icons/cg";
 import { useSelector } from 'react-redux';
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, set, push, remove } from "firebase/database";
 
 
 const BlockedComponent = () => {
@@ -17,6 +17,19 @@ const BlockedComponent = () => {
   const db = getDatabase();
 
   // ====================functions===========//
+
+  // =========unblock button function============//
+  const handleUnblock=(friendData)=>{
+    set(push(ref(db, 'friends/')), {
+      currentUserID: sliceUserData.uid,
+      currentUsername: sliceUserData.displayName,
+      currentUserphoto: sliceUserData.photoURL,
+      friendID: friendData.friendID,
+      friendName: friendData.friendName,
+      friendPhoto: friendData.friendPhoto
+    });
+    remove(ref(db, 'blocklist/'+friendData.key))
+  }
 
   useEffect(()=>{
     const starCountRef = ref(db,'blocklist/');
@@ -54,7 +67,7 @@ const BlockedComponent = () => {
               </span>
             </div>
             <div className='flex gap-[10px]'>
-              <button className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
+              <button onClick={()=>handleUnblock(item)} className="flex justify-center items-center gap-[5px] text-white bg-[#8E3E63] hover:bg-[#91DDCF] hover:text-black ease-linear duration-200 font-medium py-[10px] px-[15px] rounded">
               <CgUnblock className='text-[18px]'/>Unblock
               </button>
               </div>            
