@@ -29,7 +29,7 @@ const Navbar = () => {
       </div>
 
       {/* Sidebar Menu */}
-      <div className={`md:flex flex-col justify-between w-64 bg-[#8E3E63] text-white fixed md:static min-h-screen transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
+      <div className={`md:flex flex-col font-montserrat justify-between w-64 bg-[#8E3E63] text-white fixed md:static min-h-screen transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
         {/* Navbar Options */}
         <div className="mt-10">
           <img src="images/logoWhite.png" alt="Logo" className="h-[80px] w-[100px] mx-auto mb-[50px] hidden md:block" />
