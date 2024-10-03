@@ -3,7 +3,7 @@ import React from 'react'
 const ChatSidebar = () => {
   return (
     <>
-        <div className='w-[300px] h-screen border-2 border-[#8E3E63] font-montserrat'>
+        <div className='w-[300px] min-h-screen border-2 border-[#8E3E63] font-montserrat overflow-y-scroll'>
             <h1 className='text-xl font-bold text-black text-center p-5 mb-5'>Conversations</h1>
             <div
               key=''
