@@ -9,6 +9,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { TbLogout } from "react-icons/tb";
 
 const Navbar = () => {
   const currentUserData = useSelector((state) => state.counter.userData);
@@ -17,6 +18,11 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleLogout=()=>{
+      localStorage.removeItem('userData')
+      location.reload()
+  }
 
   return (
     <>
@@ -67,8 +73,10 @@ const Navbar = () => {
         <div className="flex items-center px-6 py-3 bg-[#8E3E63]">
           <img className="w-12 h-12 object-cover rounded-full" src={currentUserData?.photoURL} alt="Profile" />
           <div className="ml-3">
-            <h2 className="text-lg font-semibold">{currentUserData?.displayName}</h2>
+            <h2 className="text-sm font-semibold">{currentUserData?.displayName}</h2>
           </div>
+          <TbLogout onClick={handleLogout} className='ml-[20px] text-lg cursor-pointer'/>
+
         </div>
       </div>
 
