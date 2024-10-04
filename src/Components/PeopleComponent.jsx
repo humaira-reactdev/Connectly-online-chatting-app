@@ -39,10 +39,10 @@ const PeopleComponent = () => {
     set(push(ref(db, 'friendrequests/')), {
       senderID: sliceUserData.uid,
       senderName:sliceUserData.displayName,
-      senderPhoto: sliceUserData.photoURL,
+      // senderPhoto: sliceUserData.photoURL,
       receiverId:friendData.userID,
       receiverName: friendData.userName,
-      receiverPhoto: friendData.userPhoto
+      // receiverPhoto: friendData.userPhoto
     });
     // Update request status for this specific user
     setRequestStatus((prevStatus) => ({

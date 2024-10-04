@@ -40,10 +40,10 @@ const sliceUserData = useSelector((state) => state.counter.userData)
     set(push(ref(db, 'friends/')),{
       currentUserID: sliceUserData.uid,
       currentUsername: sliceUserData.displayName,
-      currentUserphoto: sliceUserData.photoURL,
+      // currentUserphoto: sliceUserData.photoURL,
       friendID: data.senderID,
       friendName: data.senderName,
-      friendPhoto: data.senderPhoto
+      // friendPhoto: data.senderPhoto
     })
 
     // // =======remove data from friendrequests====//

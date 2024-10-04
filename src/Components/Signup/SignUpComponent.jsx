@@ -90,7 +90,7 @@ const SignUpComponent = () => {
           // ============add username and profile picture=======
           updateProfile(auth.currentUser, {
             displayName: username,
-            photoURL: "https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"
+            photoURL: "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
           })
           // Signed up 
           console.log('done')
