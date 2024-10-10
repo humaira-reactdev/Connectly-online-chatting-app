@@ -5,7 +5,8 @@ import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaSave } from "react-icons/fa";
-import { getStorage, ref as sref, uploadString } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadString } from "firebase/storage";
+import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
 
 const HomeComponent = () => {
 
@@ -29,10 +30,24 @@ const HomeComponent = () => {
   // =================functions==========//
 
   const handleSave=()=>{
-    const storageRef = sref(storage, 'some-child');
-    const message4 = 'data:text/plain;base64,5b6p5Y+344GX44G+44GX44Gf77yB44GK44KB44Gn44Go44GG77yB';
-    uploadString(storageRef, message4, 'data_url').then((snapshot) => {
+    const storageRef = ref(storage, 'userPhoto/'+currentUserData.uid + '.png');
+    const auth=getAuth()
+    
+    uploadString(storageRef, cropData, 'data_url').then((snapshot) => {
       console.log('Uploaded a data_url string!');
+      getDownloadURL(storageRef)
+      .then((url)=>{
+        onAuthStateChanged(auth, (user) => {
+          updateProfile(auth.currentUser, {
+            photoURL: url           
+          }).then(()=>{
+            console.log('done')
+            location.reload()
+          })
+
+        });
+        console.log(url)
+      })
     });
   }
 
@@ -57,12 +72,7 @@ const HomeComponent = () => {
       setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
     }
   };
-
-  console.log(cropData)
-
-
-
-  
+  console.log(cropData) 
 
   return (
     <>
@@ -100,7 +110,7 @@ const HomeComponent = () => {
         <div className='bg-white p-5 rounded-lg flex flex-col items-center'>
         <div className='icons flex items-center justify-start w-full my-5'>
           <button onClick={()=>setShow(false)}><IoIosCloseCircle className='text-[#B8001F] text-[25px]' /></button>
-          <FaSave className='text-[25px] text-[#173B45]'/>
+          <button onClick={handleSave}><FaSave className='text-[25px] text-[#173B45]'/></button>
         </div>
         
 
